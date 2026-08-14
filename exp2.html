@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Report App</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg,#f0f2f5,#dbe9f4); margin: 0; padding: 20px; }
+    h1 { text-align: center; color: #222; margin-bottom: 20px; }
+    form { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+    input, button { padding: 10px 15px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+    button { background: #007bff; color: white; cursor: pointer; transition: 0.3s; }
+    button:hover { background: #0056b3; transform: scale(1.05); }
+    table { width: 80%; margin: auto; border-collapse: collapse; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: center; font-size: 15px; }
+    th { background: #007bff; color: white; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .grade-A { color: green; font-weight: bold; }
+    .grade-B { color: blue; font-weight: bold; }
+    .grade-C { color: orange; font-weight: bold; }
+    .grade-F { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Student Report Application</h1>
+  <form id="studentForm">
+    <input type="text" id="name" placeholder="Student Name" required>
+    <input type="number" id="marks" placeholder="Marks" required>
+    <button type="submit">Add Student</button>
+  </form>
+  <table id="reportTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Marks</th>
+        <th>Grade</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <script>
+    const form = document.getElementById('studentForm');
+    const tableBody = document.querySelector('#reportTable tbody');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const marks = parseInt(document.getElementById('marks').value);
+      let gradeClass, grade;
+      if (marks >= 90) { grade = 'A'; gradeClass = 'grade-A'; }
+      else if (marks >= 75) { grade = 'B'; gradeClass = 'grade-B'; }
+      else if (marks >= 50) { grade = 'C'; gradeClass = 'grade-C'; }
+      else { grade = 'F'; gradeClass = 'grade-F'; }
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${name}</td><td>${marks}</td><td class="${gradeClass}">${grade}</td>`;
+      tableBody.appendChild(row);
+      form.reset();
+    });
+  </script>
+</body>
+</html>
